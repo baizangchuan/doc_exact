@@ -1,0 +1,257 @@
+{
+    "code": 0,
+    "data": {
+        "sample_rate": null,
+        "sample_count": null,
+        "result": {
+            "record_type": "operation_info",
+            "record_title": null,
+            "record_date": null,
+            "norm_result": {
+                "record_date": [],
+                "patient_name": [
+                    {
+                        "key": "姓名：",
+                        "value": "党新录"
+                    }
+                ],
+                "age": [
+                    {
+                        "key": "年龄：",
+                        "value": "51岁"
+                    }
+                ],
+                "gender_name": [
+                    {
+                        "key": "性别：",
+                        "value": "男"
+                    }
+                ],
+                "bed_no": [
+                    {
+                        "key": "床号：",
+                        "value": "1"
+                    }
+                ],
+                "record_dept_name": [],
+                "case_no": [
+                    {
+                        "key": "病案号：",
+                        "value": "016943第[%pageindex%]页"
+                    }
+                ],
+                "admit_date": [],
+                "operation_date": [
+                    {
+                        "key": "手术日期：:",
+                        "value": "2022-12-22 15:00:00"
+                    }
+                ],
+                "surgeon_name": [
+                    {
+                        "key": "术 者：",
+                        "value": "王心刚"
+                    }
+                ],
+                "operator_assistant_name1": [
+                    {
+                        "key": "助 手：",
+                        "value": "胡兴胜"
+                    }
+                ],
+                "operator_assistant_name2": [],
+                "anesthesia_doctor_name": [
+                    {
+                        "key": "麻醉医师：",
+                        "value": "王一"
+                    }
+                ],
+                "anesthetic_method_name": [
+                    {
+                        "key": "麻醉方法：",
+                        "value": "局麻"
+                    }
+                ],
+                "operation_incision_level": [
+                    {
+                        "key": "切口等级：",
+                        "value": "I/甲"
+                    }
+                ],
+                "operation_incision_type_name": [],
+                "preoperative_diag_name": [
+                    {
+                        "key": "术前诊断：",
+                        "value": "重症肌无力，眼肌型"
+                    }
+                ],
+                "intraoperative_diag_name": [],
+                "postoperative_diag_name": [
+                    {
+                        "key": "术后诊断：",
+                        "value": "重症肌无力，眼肌型"
+                    }
+                ],
+                "operation_name": [
+                    {
+                        "key": "手术名称：",
+                        "value": "眶切开活检术"
+                    }
+                ],
+                "opera_sign": [],
+                "surgery_process_desc": [
+                    {
+                        "key": "手术经过、术中出现情况及处理：",
+                        "value": "重症肌无力，眼肌型患者取平卧位,双侧腹股沟消毒,范围上界平脐,下界平股骨中段,两侧为腋中线,铺开刀巾及无菌大单。取右侧腹股沟皮肤皱褶下1.5cm为皮肤穿刺点,18G穿刺针穿刺股动脉成功后导入穿刺导丝,经导丝置入5F血管鞘,肝素生理盐水冲洗鞘管后经静脉给予肝素2000单位。透视下经导丝引导猪尾导管置于升主动脉,撤导丝后导管接高压注射器,行主动脉弓造影,造影剂量25ml,流速20ml/s,压力800atm。肝素生理盐水冲洗后撤猪尾导管。透视下经导丝引单弯导管置于升主动脉,导管头端翘起,缓慢回撤导管,依次行右椎动脉、右侧颈动脉、左椎动脉、左侧颈动脉造影,手术顺利。手术后结果提示: 脑血管未见明显异常,左椎动脉为后循环优势供血。常规血管闭合术,术中出血约10ml,患者无任何不适,术毕安返病房。"
+                    }
+                ],
+                "specimen": [],
+                "transfusion": [],
+                "path_frozen_diag": [],
+                "process_doctor_sign": [],
+                "operation_level_name": [
+                    {
+                        "key": "手术分级：",
+                        "value": "2"
+                    }
+                ],
+                "surgery_operation_code": [],
+                "heal_level": [],
+                "emergency_operation_flag": [],
+                "postoperative_measures": [],
+                "postoperative_attention": [],
+                "intraoperative_measures": [],
+                "operation_risk_assessment": [],
+                "record_name": [],
+                "sign_doctor_name": [],
+                "sign_date": [
+                    {
+                        "key": "签名日期：",
+                        "value": "2022年12月28日"
+                    }
+                ],
+                "other": [
+                    {
+                        "key": "手术记录",
+                        "value": ""
+                    },
+                    {
+                        "key": "科别：",
+                        "value": "消化内分泌科"
+                    },
+                    {
+                        "key": "麻醉分级：",
+                        "value": "ASA P2级"
+                    },
+                    {
+                        "key": "手术部位：",
+                        "value": "左眼"
+                    }
+                ],
+                "recorder_name": [
+                    {
+                        "key": "医师签名：",
+                        "value": "王心刚"
+                    }
+                ]
+            },
+            "norm_res_sub_seg": {},
+            "raw_seg": [
+                [
+                    "nonkey_contents:",
+                    "斯普德演示医院"
+                ],
+                [
+                    "手术记录",
+                    ""
+                ],
+                [
+                    "姓名：",
+                    "党新录"
+                ],
+                [
+                    "性别：",
+                    "男"
+                ],
+                [
+                    "年龄：",
+                    "51岁"
+                ],
+                [
+                    "科别：",
+                    "消化内分泌科"
+                ],
+                [
+                    "床号：",
+                    "1"
+                ],
+                [
+                    "病案号：",
+                    "016943第[%pageindex%]页"
+                ],
+                [
+                    "手术日期：:",
+                    "2022-12-22 15:00:00"
+                ],
+                [
+                    "术前诊断：",
+                    "重症肌无力，眼肌型"
+                ],
+                [
+                    "术后诊断：",
+                    "重症肌无力，眼肌型"
+                ],
+                [
+                    "手术名称：",
+                    "眶切开活检术"
+                ],
+                [
+                    "麻醉分级：",
+                    "ASA P2级"
+                ],
+                [
+                    "手术分级：",
+                    "2"
+                ],
+                [
+                    "手术部位：",
+                    "左眼"
+                ],
+                [
+                    "切口等级：",
+                    "I/甲"
+                ],
+                [
+                    "术 者：",
+                    "王心刚"
+                ],
+                [
+                    "助 手：",
+                    "胡兴胜"
+                ],
+                [
+                    "麻醉方法：",
+                    "局麻"
+                ],
+                [
+                    "麻醉医师：",
+                    "王一"
+                ],
+                [
+                    "手术经过、术中出现情况及处理：",
+                    "重症肌无力，眼肌型患者取平卧位,双侧腹股沟消毒,范围上界平脐,下界平股骨中段,两侧为腋中线,铺开刀巾及无菌大单。取右侧腹股沟皮肤皱褶下1.5cm为皮肤穿刺点,18G穿刺针穿刺股动脉成功后导入穿刺导丝,经导丝置入5F血管鞘,肝素生理盐水冲洗鞘管后经静脉给予肝素2000单位。透视下经导丝引导猪尾导管置于升主动脉,撤导丝后导管接高压注射器,行主动脉弓造影,造影剂量25ml,流速20ml/s,压力800atm。肝素生理盐水冲洗后撤猪尾导管。透视下经导丝引单弯导管置于升主动脉,导管头端翘起,缓慢回撤导管,依次行右椎动脉、右侧颈动脉、左椎动脉、左侧颈动脉造影,手术顺利。手术后结果提示: 脑血管未见明显异常,左椎动脉为后循环优势供血。常规血管闭合术,术中出血约10ml,患者无任何不适,术毕安返病房。"
+                ],
+                [
+                    "医师签名：",
+                    "王心刚"
+                ],
+                [
+                    "签名日期：",
+                    "2022年12月28日"
+                ]
+            ],
+            "msg": "ok",
+            "code": 0
+        }
+    }
+}
