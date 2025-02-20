@@ -98,10 +98,11 @@ public class Main {
                 
             // }
     
-    
+            // 找出doc_type下所有存在于content的解析键名列表，并依据其在content出现的位置排序
             DatabaseConnector.Table_pair table = DatabaseConnector.get_Table(doc_type, json_content, url, user, password);//这里改写了函数，增加了入参：doc_type
             List<Map<String, String>>  key_table = table.main_body;
-            List<List<Map<String, String>>> sub_content_list=table.sub_content_list;
+            
+            List<List<Map<String, String>>> sub_content_list=table.sub_content_list; //这是什么？
             System.err.println(sub_content_list);
             System.out.println("------------------------------------------------sub_content_list ↑");
     
