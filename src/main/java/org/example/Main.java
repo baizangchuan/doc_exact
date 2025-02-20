@@ -29,7 +29,8 @@ public class Main {
     // public static String xml_path = root + "xml_fac/党入院记录.xml";
 
     // public static String json_path = root + "input/"+doc_type+"_input.json";
-    public static String json_path = "/Users/baicangchuan/Desktop/Last/input/test_01_12.json";
+    public static String json_path = "./input/admit_info_input.json";
+    public static String save_json_path = "./output/admit_info_output.json";
 
     
 
@@ -60,7 +61,7 @@ public class Main {
 
 
                 // 将 JSON 数据保存到本地文件
-        try (FileWriter file = new FileWriter("/Users/baicangchuan/Desktop/Last/output/test_01_12.json")) {
+        try (FileWriter file = new FileWriter(save_json_path)) {
             file.write(finalData.toString(4)); // 格式化缩进写入
             System.out.println("JSON 数据已保存到 data.json");
         } catch (IOException e) {
