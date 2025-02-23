@@ -29,8 +29,8 @@ public class Main {
     // public static String xml_path = root + "xml_fac/党入院记录.xml";
 
     // public static String json_path = root + "input/"+doc_type+"_input.json";
-    public static String json_path = "./input/admit_info_input.json";
-    public static String save_json_path = "./output/admit_info_output.json";
+    public static String json_path = "./input/test_input.json";
+    public static String save_json_path = "./output/test_output.json";
 
     
 
@@ -49,7 +49,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         //数据库配置
-        String url = "jdbc:mysql://111.9.47.74:13000/emr_parser";
+        String url = "jdbc:mysql://111.9.47.74:13000/emr_parser_test";
         String user = "root";
         String password = "Aliab12!2020";
 
@@ -63,7 +63,7 @@ public class Main {
                 // 将 JSON 数据保存到本地文件
         try (FileWriter file = new FileWriter(save_json_path)) {
             file.write(finalData.toString(4)); // 格式化缩进写入
-            System.out.println("JSON 数据已保存到 data.json");
+            System.out.println("JSON 数据已保存到 "+save_json_path);
         } catch (IOException e) {
             e.printStackTrace();
         }
