@@ -7,21 +7,20 @@ public class Table_hhj {
     public static List<Map<String, String>> filterTable(List<Map<String, String>> keyTable, String content) {
         List<Map<String, String>> matchedTable = new ArrayList<>();
 
-        // 将中文和英文的空格都转换为正则表达式中的\s
-        String modifiedContent = content.replaceAll("[\\s\u00A0]", " ");
-
         for (Map<String, String> row : keyTable) {
             String namePattern = row.get("name");
             if (namePattern != null) {
-                // 将name中的空格替换为\s*，并且使用Pattern.quote转义特殊字符
-                String modifiedPattern = namePattern.replaceAll("[\\s\u00A0]", "\\\\s*");
+                // 处理普通匹配
+                if (content.contains(namePattern)) {
+                    row.put("name", namePattern);
+                    matchedTable.add(row);
+                    continue; // 如果普通匹配成功，直接添加并继续下一个循环
+                }
 
-                // 使用Pattern.quote确保namePattern中的特殊字符不被错误解析
-                modifiedPattern = Pattern.quote(modifiedPattern);
-
-                // 创建正则表达式匹配器
-                Pattern pattern = Pattern.compile(modifiedPattern);
-                Matcher matcher = pattern.matcher(modifiedContent);
+                // 处理正则匹配
+                namePattern = Pattern.quote(namePattern); // 确保特殊字符被转义
+                Pattern pattern = Pattern.compile(namePattern);
+                Matcher matcher = pattern.matcher(content);
 
                 if (matcher.find()) {
                     row.put("name", matcher.group());
@@ -82,7 +81,7 @@ public class Table_hhj {
             }
         }
     
-        //去除“病案号”尾部的多余内容
+        //去除"病案号"尾部的多余内容
         public static String RemoveExtraneousContent(String key_name, String content){
             String new_content="";
             int modify=0;//是否修改的标记
