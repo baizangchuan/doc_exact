@@ -112,11 +112,11 @@ public class Main {
     
     
             List<Map<String, String>> exited_table = key_table;
-            // exited_table = Table_hhj.filterTable(key_table, json_content);
+            exited_table = Table_hhj.filterTable(key_table, json_content);
             System.out.println(Table_hhj.extract_List_by_key(exited_table,"name"));
             System.out.println("------------------------------------------------exited_table ↑");
     
-            // exited_table=DatabaseConnector.sortTable(exited_table, json_content);
+            exited_table=DatabaseConnector.sortTable(exited_table, json_content);
             System.out.println(Table_hhj.extract_List_by_key(exited_table,"name"));
             System.out.println("------------------------------------------------sorted_table ↑");
     
@@ -127,7 +127,7 @@ public class Main {
     
             //从模板获取原始字段的组合规则
             ArrayList<ArrayList<String>> normResultGuide = Table_hhj.get_normResultGuide(exited_table);
-            System.out.println(normResultGuide);
+            // System.out.println(normResultGuide);
             System.out.println("------------------------------------------------normResultGuide↑");
     
     
@@ -138,7 +138,7 @@ public class Main {
             
             //由组合规则对原始字段做组合拼凑
             JSONObject normResult = InfoExtracter.getNormResultFromSchemaTreeList(schema_tree_list, rawSeg);
-            System.out.println(normResult);
+            // System.out.println(normResult);
             System.out.println("------------------------------------------------normResult↑");
     
             // SubExtract.Print_test(sub_content_list,rawSeg);
@@ -146,7 +146,7 @@ public class Main {
             SubExtract.mergeJsonObjects(normResult, sub_NormResult);
     
             //由组合规则对原始字段做组合拼凑
-            System.out.println(normResult);
+            // System.out.println(normResult);
             System.out.println("------------------------------------------------new normResult↑");
     
             //生成出参内容
