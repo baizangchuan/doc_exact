@@ -21,8 +21,8 @@ public class InfoExtracter {
         String jsonData = new String(Files.readAllBytes(Paths.get(dir)));
         JSONObject jsonObject = new JSONObject(jsonData);
         content = jsonObject.getJSONObject("args").getString("content");
-        content = content.replaceAll("\u3000", "");
-        content= content.replaceAll("\\u0020", "");
+        // content = content.replaceAll("\u3000", "");
+        // content= content.replaceAll("\\u0020", "");
         return content;
     }
     //判断doc_type

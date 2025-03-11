@@ -10,20 +10,22 @@ public class Table_hhj {
         for (Map<String, String> row : keyTable) {
             String namePattern = row.get("name");
             if (namePattern != null) {
-                // 处理普通匹配
-                if (content.contains(namePattern)) {
-                    row.put("name", namePattern);
-                    matchedTable.add(row);
-                    continue; // 如果普通匹配成功，直接添加并继续下一个循环
-                }
-
-                // 处理正则匹配
-                namePattern = Pattern.quote(namePattern); // 确保特殊字符被转义
+                // 先尝试正则匹配（使用原始正则表达式）
                 Pattern pattern = Pattern.compile(namePattern);
                 Matcher matcher = pattern.matcher(content);
-
+                
                 if (matcher.find()) {
-                    row.put("name", matcher.group());
+                    // 如果正则匹配成功，使用匹配到的实际文本
+                    String matchedText = matcher.group();
+                    row.put("name", matchedText);
+                    matchedTable.add(row);
+                    continue;
+                }
+
+                // 再尝试普通字符串匹配（转义特殊字符）
+                String literalPattern = Pattern.quote(namePattern);
+                if (content.contains(literalPattern)) {
+                    row.put("name", namePattern);
                     matchedTable.add(row);
                 }
             }

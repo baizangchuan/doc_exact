@@ -114,6 +114,7 @@ public class Main {
             List<Map<String, String>> exited_table = key_table;
             exited_table = Table_hhj.filterTable(key_table, json_content);
             System.out.println(Table_hhj.extract_List_by_key(exited_table,"name"));
+            // System.out.println(exited_table);
             System.out.println("------------------------------------------------exited_table ↑");
     
             exited_table=DatabaseConnector.sortTable(exited_table, json_content);
