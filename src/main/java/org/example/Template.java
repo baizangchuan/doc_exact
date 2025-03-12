@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -221,11 +223,53 @@ public class Template {
         return normResult;
     }
 
+    /**
+     * 去除 JSONObject 中列表类型值的重复元素
+     */
+    public static JSONObject removeDuplicatesFromLists(JSONObject jsonObject) {
+        // 遍历 JSONObject 的所有键
+        for (String key : jsonObject.keySet()) {
+            Object value = jsonObject.get(key);
+            
+            // 如果值是 JSONArray
+            if (value instanceof org.json.JSONArray) {
+                org.json.JSONArray jsonArray = (org.json.JSONArray) value;
+                
+                // 创建一个新的不含重复元素的列表
+                List<Object> uniqueItems = new ArrayList<>();
+                Set<String> uniqueStrings = new HashSet<>();
+                
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    Object item = jsonArray.get(i);
+                    String itemString = item.toString();
+                    
+                    // 如果这个元素还没有添加过，则添加它
+                    if (!uniqueStrings.contains(itemString)) {
+                        uniqueItems.add(item);
+                        uniqueStrings.add(itemString);
+                    }
+                }
+                
+                // 创建新的 JSONArray 并替换原来的
+                org.json.JSONArray newArray = new org.json.JSONArray();
+                for (Object item : uniqueItems) {
+                    newArray.put(item);
+                }
+                
+                jsonObject.put(key, newArray);
+            }
+        }
+        
+        return jsonObject;
+    }
 
-
-    //确立最终文件的格式
+    /**
+     * 生成最终数据
+     */
     public static JSONObject genFinalData(JSONObject normResult, List<List<String>> rawSeg, String doc_type, String doc_type_zh) {
-
+        // 去除 normResult 中列表值的重复元素
+        normResult = removeDuplicatesFromLists(normResult);
+        
         String record_title=doc_type_zh;
         // switch (doc_type) {
         //     case "admit_info":
