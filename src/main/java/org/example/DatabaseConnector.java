@@ -280,7 +280,7 @@ public class DatabaseConnector {
                 sub_content= new ArrayList<>();
                 for(Map<String, String> table_line:table){
                     // System.out.println(table_line);
-                    if (table_line.get("root_node")!=null){
+                    if (table_line.get("root_node")!=null && table_line.get("root_node")!=""){
                         if (table_line.get("root_node").equals(root_node)){//可能会存在为空的报错
                             sub_content.add(table_line);
                         }

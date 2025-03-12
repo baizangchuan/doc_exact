@@ -320,6 +320,84 @@ public class Get_File_docType {
 
         return databaseDoctypeList;
     }
+    
+    public static ArrayList<HashMap<String, Object>> GetAllTemplate(String table_name, String url, String user, String password) {
+        ArrayList<HashMap<String, Object>> databaseDoctypeList = new ArrayList<>();
+
+        // 连接数据库
+        // String url = url;
+        // String user = "root";
+        // String password = "Aliab12!2020";
+
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        ArrayList<String> doc_type_list = new ArrayList<>();
+        String pre_schema = null;
+
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+
+            String sql = "select * from "+table_name;
+
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String isType = rs.getString("adm_column");
+                if (isType.equals("type")) {
+                    // System.out.println(".()1212222222222222222");
+                    // String schema = rs.getString("template_config_code");
+                    String doc_type_en = rs.getString("template_config_code");
+                    
+                    //判断databaseDoctypeList中是否有doc_type_en
+                    boolean exit_doc_type_en = false;
+                    for (Map<String, Object> entry : databaseDoctypeList) {
+                        if (doc_type_en.equals(entry.get("doc_type"))) {
+                            exit_doc_type_en = true;
+                            //有则判断doc_type_zh是否在“type”里，不在则插入
+                            List<String> typeList = (List<String>) entry.get("type");
+                            typeList.add( rs.getString("config_node_key"));
+                            break;
+                        }
+                    }
+                    if (exit_doc_type_en){
+
+                    }
+                    else{//没有则创建，插入
+                        HashMap<String, Object> newEntry = new HashMap<>();
+                        newEntry.put("doc_type", doc_type_en);
+                        newEntry.put("type", new ArrayList<>(Arrays.asList(rs.getString("config_node_key"))));
+                
+                        // Add the new element to the list
+                        databaseDoctypeList.add(newEntry);
+                    }
+   
+                }
+                String schema = rs.getString("template_config_code");
+                if (!schema.equals(pre_schema) && ! doc_type_list.contains(schema)){
+                    doc_type_list.add(schema);
+                    pre_schema = schema;
+                }
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            // 确保资源被关闭
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // System.err.println(databaseDoctypeList);
+
+        return databaseDoctypeList;
+    }
 
     // public static void CreateLabel(String TableName) {
     //     String url = "jdbc:mysql://111.9.47.74:8922/emr_parser";

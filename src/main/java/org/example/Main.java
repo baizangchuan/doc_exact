@@ -49,7 +49,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         //数据库配置
-        String url = "jdbc:mysql://111.9.47.74:13000/emr_parser";
+        String url = "jdbc:mysql://111.9.47.74:13000/emr_parser_copy";
         String user = "root";
         String password = "Aliab12!2020";
 
@@ -82,21 +82,24 @@ public class Main {
                 doc_type_zh=Get_docType.Get_DocType_zh(json_content, database_doctype_list);
                 doc_type = Get_docType.Get_DocType_en(json_content, database_doctype_list);
                 System.out.println(doc_type_zh);    
-                System.out.println(doc_type);    
-                System.out.println("------------------------------------------------doc_type ↑");
+
             } //！这里好像有问题：没有找出最精确的doc_type
             else{
-                System.out.println("doc_type为空！");
-            }
-            // else{//doc_type为空的情况, 建新表
-            //     String time_info=GetTime.getCurrentTimeFormatted();
-            //     String doc_type_zh="新模板_此处要改为文档标识符_"+time_info;
-            //     String doc_type_en="new_tamplate_你要将此为文档的英文名如admit_info或拼音"+time_info; 
-            //     String org_name="12123";
-            //     Create_new_table.Create_new_table_for_no_type_content(json_content, doc_type_zh, doc_type_en, org_name, url, user, password);
-            //     //这里应该做成不返回内容，或者返回特殊内容，然后退出
+                System.out.println("doc_type为空！尝试自动检测文档类型...");
                 
-            // }
+                // 使用DocTypeDetector自动检测最匹配的文档类型
+                //要剔除掉type
+                doc_type = DocTypeDetector.detectDocType(json_content, url, user, password);
+                
+                if (!doc_type.isEmpty()) {
+                    System.out.println("自动检测到文档类型: " + doc_type);
+                } else {
+                    System.out.println("无法自动检测文档类型，将使用默认类型");
+                    doc_type = doc_type_list.get(0); // 使用默认类型
+                }
+            }
+            System.out.println(doc_type);    
+            System.out.println("------------------------------------------------doc_type ↑");
     
             // 找出doc_type下所有存在于content的解析键名列表，并依据其在content出现的位置排序
             DatabaseConnector.Table_pair table = DatabaseConnector.get_Table(doc_type, json_content, url, user, password);//这里改写了函数，增加了入参：doc_type
@@ -123,7 +126,7 @@ public class Main {
     
     
             List<List<String>> rawSeg = Table_hhj.getRawSeg(json_content,exited_table);
-            System.out.println(rawSeg);
+            // System.out.println(rawSeg);
             System.out.println("------------------------------------------------rawSeg↑");
     
             //从模板获取原始字段的组合规则
@@ -134,7 +137,7 @@ public class Main {
     
             //将组合规则按照相同的schema组合为树状
             List<List<Object>> schema_tree_list = InfoExtracter.mergeLists(normResultGuide);
-            System.out.println(schema_tree_list);
+            // System.out.println(schema_tree_list);
             System.out.println("------------------------------------------------schema_tree_list↑");
             
             //由组合规则对原始字段做组合拼凑
