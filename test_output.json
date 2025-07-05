@@ -1,0 +1,59 @@
+{
+    "data": {
+        "result": {
+            "msg": "ok",
+            "record_date": null,
+            "code": "0",
+            "record_title": "转出记录",
+            "doctor_titles": "",
+            "norm_result": {
+                "medical_charact": [
+                    {
+                        "value": "}”于{RB_表inchinfo-入院日期}入院。入院情况：",
+                        "key": "主诉"
+                    }
+                ],
+                "admit_diag_name": [
+                    {
+                        "value": "{入院诊断}",
+                        "key": "入院诊断："
+                    }
+                ],
+                "type": [
+                    {
+                        "value": "患者{姓名、{RB_表inchinfo-性别}、{RB_表inchinfo-年龄}。因“{RB_",
+                        "key": "转出记录"
+                    }
+                ],
+                "datreat_process_desc": [
+                    {
+                        "value": "目前情况：目前诊断：转科目的及注意事项：{医师签名}",
+                        "key": "诊疗经过："
+                    }
+                ]
+            },
+            "recordType": "zhuanchujilu",
+            "normResSubSeg": {},
+            "raw_seg": [
+                [
+                    "转出记录",
+                    "患者{姓名、{RB_表inchinfo-性别}、{RB_表inchinfo-年龄}。因“{RB_"
+                ],
+                [
+                    "主诉",
+                    "}”于{RB_表inchinfo-入院日期}入院。入院情况："
+                ],
+                [
+                    "入院诊断：",
+                    "{入院诊断}"
+                ],
+                [
+                    "诊疗经过：",
+                    "目前情况：目前诊断：转科目的及注意事项：{医师签名}"
+                ]
+            ]
+        },
+        "sample_rate": null,
+        "sample_count": null
+    }
+}

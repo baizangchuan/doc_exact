@@ -1,9 +1,10 @@
 import requests
 import json
+import os
 
 data = {
     "args": {
-        "content":"\n\n姓名：患者姓名 职业：公务员 \n性别：男 工作单位：工作单位地址 \n年龄：年龄 住址：住址 \n婚姻：婚姻 病史陈述者：病史陈述者 \n出生地：出生地 入院日期：入院日期 \n民族：民族 记录日期：记录日期 \n        主诉：主诉\n    现病史：现病史\n    既往史：既往史\n    个人史：个人史\n    月经史：Value1,Value2,Value3,Value4月经史\n    婚育史：婚育史\n    家族史：家族史\n    本人就病历记录所口述的全部告知内容均属真实，且已阅读并确认上述病历记录记载无误。如有不实告知，相应法律后果均有本人自行承担，医院不承担由于本人不实告知而引发的任何法律责任。\n患者签名：             病史提供者签名：         （与患者关系：         ）\n确认时间：记录日期\n体 格 检 查\n\n     体温体温℃     脉搏脉搏次/分    呼吸呼吸次/分    血压血压mmHg \n一般状况: 发育良好，营养中等，神志清楚，体位自主，正常面容，表情安静，查体合作。 \n皮肤黏膜: 颜色正常，温度正常，皮肤弹性良，无水肿，无皮疹，无瘀点，无紫癜，无皮下结节，无肿块，无蜘蛛痣，无肝掌，无溃疡，无瘢痕。 \n淋 巴 结: 浅表淋巴结未触及肿大。 \n头部及其器官: \n  头颅正常，无肿块，无压痛，无瘢痕，头发头发分布描述，眼睑正常，眼球正常，瞳孔形状等大正圆，直径（左侧2mm，右侧2mm），对光反射正常。巩膜无黄染。双耳无畸形，无分泌物，乳突无压痛，听力正常。鼻无畸形，无出血，无鼻中隔偏曲，鼻窦无压痛。牙齿无异常，牙龈未见异常，口唇颜色红润。舌苔舌苔情况，无溃疡，伸舌方向居中。咽部粘膜未见异常，扁桃体正常，未见充血、分泌物、假膜。喉发音清晰。 \n颈   部: 运动自如，未见颈静脉怒张，肝颈静脉回流征阴性，颈动脉搏动正常，气管居中，甲状腺未及肿大，质质地，无压痛，无结节，未触及震颤，未闻及血管杂音。颈部-其他 \n胸   部: 胸廓外形对称，乳房对称，无红肿，无溃疡，乳头无凹陷，未触及包块。未见肋间隙，胸壁无静脉曲张、皮下气肿，无胸壁压痛。肺脏和胸膜：双肺呼吸动度双侧呼吸动度，未见增强及减弱，无肋间隙增宽及变窄。语颤触觉语颤,无胸膜摩擦感,无皮下捻发音。呼吸音呼吸音，无啰音。可闻及部位及性质胸膜摩擦音。肺脏和胸膜-其他\n心脏：无心前区隆起，心尖搏动文本框，无震颤和心包摩擦感。\n叩诊心脏浊音界\n\n   右界（cm）           肋间               左界（cm） \n          2～3                 Ⅱ                 2～3 \n          2～3                 Ⅲ                 3.5～4.5\n          3～4                 Ⅳ                 5～6\n                   Ⅴ                 7～9 左锁骨中线距胸骨中线为8～10cm\n心率心率次/分，心律齐，未闻及杂音，未闻及心包摩擦音。胸部-其他 \n腹   部: 未触及包块。腹部平坦，未见皮疹、色素、瘢痕、及腹壁静脉曲张。未见局部隆起。腹软，无肌紧张，无压痛，无反跳痛，未触及包块。肝脏未触及，脾脏未触及。肝区叩击痛阴性，无肾区叩击痛，移动性浊音阴性。肠鸣音正常。未闻及振水音和血管杂音。腹部-其他 \n肛门、直肠及外生殖器: 未查。 \n脊   柱: 弯曲度正常，活动度活动度，无压痛，无叩击痛。叩击痛-其他 \n四肢及其关节: \n  无畸形，无杵状指（趾），无下肢静脉曲张，无下肢水肿。无骨折及关节红肿、疼痛、压痛、积液、脱臼。足背动脉搏动正常，无肌肉萎缩。\n肌力：左侧上肢Ⅰ级，右侧上肢Ⅲ级，左侧下肢Ⅰ级，左侧下肢Ⅳ级，肌张力正常。四肢及其关节-其他 \n神经反射: 浅反射（角膜反射、腹壁反射、提睾反射）正常，深反射（肱二头肌、肱三头肌、膝腱反射、跟腱反射）正常，Hoffmann征阴性，Babinski征阴性，Oppenheim征阴性，Gordon征阴性，Kernig征阴性，Brudzinski征阴性。 \n专 科 情 况\n    专科情况\n实验室及器械检查结果\n检查结果\n\n\n 初步诊断：初步诊断\n住院医师：住院医师\n主治医师：主治医师 ",
+        "content":"    转出记录	患者{姓名、{RB_表inchinfo-性别}、{RB_表inchinfo-年龄}。因“{RB_主诉}”于{RB_表inchinfo-入院日期}入院。    入院情况：    入院诊断：{入院诊断}    诊疗经过：    目前情况：    目前诊断：    转科目的及注意事项：  			{医师签名}",
         "hospital": "415801168",
         "tmpl_type": "txt",
         "multi_task": True,
@@ -20,10 +21,23 @@ response = requests.post(url,json=data)
 # 打印响应状态码
 print(f"Status Code: {response.status_code}")
 
-# 打印响应的JSON内容
+# 打印响应的JSON内容并保存到文件
 if response.status_code == 200:
     print("Response JSON:")
     print(response.text)
+    
+    # 确保输出目录存在
+    output_dir = "/Users/baicangchuan/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/da6364f4fd6b21dd7c3bbfa91da91fa1/Message/MessageTemp/e41b622775d870723b8550357fa73b29/File/Last2"
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # 解析响应内容为JSON对象
+    response_json = response.json()
+    
+    # 保存格式化的JSON到文件
+    output_file = os.path.join(output_dir, "test_output.json")
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(response_json, f, ensure_ascii=False, indent=4)
+    print(f"Response has been saved to {output_file}")
 else:
     print("Failed to get a valid response")
     print(response.text)

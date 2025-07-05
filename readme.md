@@ -26,7 +26,9 @@ String password = "Aliab12!2020";
 
 **纠错解析模式**：
 demo2/src/main/java/com/example/demo/Demo2Application.java
-(待补充)
+- 启动后要再启动前端访问这个
+
+
 
 **前端解析页面参数配置**：
 medical-records-parsing/vite.config.js
