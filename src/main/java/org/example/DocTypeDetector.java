@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,43 +40,30 @@ public class DocTypeDetector {
         // 找出匹配数量最多的模板
         String bestMatchTemplate = "";
         int highestCount = 0;
-        int minDifference = Integer.MAX_VALUE;
+        double bestScore = 0.0;  // 使用分数机制，考虑匹配数量和差值
         
-        // 先找出匹配数量与总关键词数之差最小的模板中的最大匹配数
         for (Map.Entry<String, Integer> entry : matchCounts.entrySet()) {
             String templateCode = entry.getKey();
             int matchCount = entry.getValue();
             int totalKeys = allTemplateKeys.get(templateCode).size();
             int difference = totalKeys - matchCount;
             
-            System.out.println("模板 " + templateCode + " 的匹配数量: " + matchCount + 
-                              " (总关键词: " + totalKeys + ", 差值: " + difference + ")");
+            // 计算匹配分数：匹配数量占主导地位，差值作为权重因子
+            double matchScore = matchCount * (1.0 / (1 + difference * 0.1));
             
-            // 如果差值小于3，考虑这个模板
-            if (difference < 3) {
-                if (matchCount > highestCount) {
-                    highestCount = matchCount;
-                    bestMatchTemplate = templateCode;
-                    minDifference = difference;
-                } else if (matchCount == highestCount && difference < minDifference) {
-                    // 如果匹配数相同，选择差值更小的
-                    bestMatchTemplate = templateCode;
-                    minDifference = difference;
-                }
+            System.out.println("模板 " + templateCode + " 的匹配数量: " + matchCount + 
+                             " (总关键词: " + totalKeys + ", 差值: " + difference + 
+                             ", 分数: " + String.format("%.2f", matchScore) + ")");
+            
+            if (matchScore > bestScore) {
+                bestScore = matchScore;
+                highestCount = matchCount;
+                bestMatchTemplate = templateCode;
             }
         }
         
-        // 如果没有找到差值小于3的模板，就选择匹配数量最多的
-        if (bestMatchTemplate.isEmpty()) {
-            for (Map.Entry<String, Integer> entry : matchCounts.entrySet()) {
-                if (entry.getValue() > highestCount) {
-                    highestCount = entry.getValue();
-                    bestMatchTemplate = entry.getKey();
-                }
-            }
-        }
-        
-        System.out.println("最佳匹配模板: " + bestMatchTemplate + ", 匹配数量: " + highestCount);
+        System.out.println("最佳匹配模板: " + bestMatchTemplate + ", 匹配数量: " + highestCount + 
+                         ", 最终分数: " + String.format("%.2f", bestScore));
         return bestMatchTemplate;
     }
     
@@ -91,6 +80,9 @@ public class DocTypeDetector {
         try {
             connection = DriverManager.getConnection(url, user, password);
             
+            // 使用Map<String, Set<String>>临时存储，以实现去重
+            Map<String, Set<String>> tempKeys = new HashMap<>();
+            
             // 查询所有模板的template_config_code和config_node_key，排除config_node_key为'type'的行（不区分大小写）
             String sql = "SELECT template_config_code, config_node_key FROM new_template WHERE LOWER(config_node_key) != 'type'";
             statement = connection.createStatement();
@@ -101,9 +93,14 @@ public class DocTypeDetector {
                 String configKey = resultSet.getString("config_node_key");
                 
                 if (templateCode != null && configKey != null) {
-                    // 将键添加到对应模板的列表中
-                    templateKeys.computeIfAbsent(templateCode, k -> new ArrayList<>()).add(configKey);
+                    // 使用Set来自动去重
+                    tempKeys.computeIfAbsent(templateCode, k -> new HashSet<>()).add(configKey);
                 }
+            }
+            
+            // 将Set转换为List
+            for (Map.Entry<String, Set<String>> entry : tempKeys.entrySet()) {
+                templateKeys.put(entry.getKey(), new ArrayList<>(entry.getValue()));
             }
             
         } catch (SQLException e) {
