@@ -30,11 +30,15 @@ public class SubExtract {
     public static void Print_test(List<List<Map<String, String>>> sub_content_list, List<List<String>> rawSeg){
         for (List<Map<String, String>>sub_content : sub_content_list){
             String root_node=sub_content.get(0).get("root_node").replace("\\s+", "\\s*");
+            System.err.println(root_node);
+            System.err.println("-------------------------------root_node ↑");
             String root_content=get_root_content(rawSeg,root_node);
             System.err.println(root_content);
             System.err.println("-------------------------------root_content ↑");
 
-            // sub_content = Table.filterTable(sub_content, root_content);
+            // sub_content = Table_hhj.filterTable(sub_content, root_content);
+
+            
 
             List<List<String>> sub_rawSeg = Table_hhj.getRawSeg(root_content, sub_content);
             System.out.println(sub_rawSeg);
@@ -79,6 +83,7 @@ public class SubExtract {
             System.err.println("-------------------------------root_content ↑");
 
             sub_content = Table_hhj.filterTable(sub_content, root_content);
+            sub_content = DatabaseConnector.sortTable(sub_content, root_content); // 修改类名
 
             List<List<String>> sub_rawSeg = Table_hhj.getRawSeg(root_content, sub_content);
             System.out.println(sub_rawSeg);

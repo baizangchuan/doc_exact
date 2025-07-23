@@ -107,9 +107,9 @@ public class Main {
             
             List<List<Map<String, String>>> sub_content_list=table.sub_content_list; //这是什么？
             System.err.println(sub_content_list);
-            System.out.println("------------------------------------------------sub_content_list ↑");
+            System.out.println("------------------------------------------------sub_content_list ↑");//到这一步还是对的 key的列表   
     
-            System.out.println(key_table);
+            System.out.println(key_table);//这里面似乎没有体格检查  -> 会分为main_body和sub_content_list，main_body是主表，sub_content_list是子表，子表解析出来的内容可能因为没有后面闭区间的限制而不全
             System.out.println("------------------------------------------------key_table ↑");
     
     
@@ -125,8 +125,8 @@ public class Main {
             System.out.println("------------------------------------------------sorted_table ↑");
     
     
-            List<List<String>> rawSeg = Table_hhj.getRawSeg(json_content,exited_table);
-            // System.out.println(rawSeg);
+            List<List<String>> rawSeg = Table_hhj.getRawSeg(json_content,exited_table);//检查有没有sub_content内容->没有
+            System.out.println(rawSeg);
             System.out.println("------------------------------------------------rawSeg↑");
     
             //从模板获取原始字段的组合规则
@@ -137,7 +137,7 @@ public class Main {
     
             //将组合规则按照相同的schema组合为树状
             List<List<Object>> schema_tree_list = InfoExtracter.mergeLists(normResultGuide);
-            // System.out.println(schema_tree_list);
+            System.out.println(schema_tree_list);
             System.out.println("------------------------------------------------schema_tree_list↑");
             
             //由组合规则对原始字段做组合拼凑
@@ -145,12 +145,12 @@ public class Main {
             // System.out.println(normResult);
             System.out.println("------------------------------------------------normResult↑");
     
-            // SubExtract.Print_test(sub_content_list,rawSeg);
+            SubExtract.Print_test(sub_content_list,rawSeg);
             JSONObject sub_NormResult= SubExtract.get_sub_NormResult(sub_content_list, rawSeg);
             SubExtract.mergeJsonObjects(normResult, sub_NormResult);
     
             //由组合规则对原始字段做组合拼凑
-            // System.out.println(normResult);
+            System.out.println(normResult);
             System.out.println("------------------------------------------------new normResult↑");
     
             //生成出参内容

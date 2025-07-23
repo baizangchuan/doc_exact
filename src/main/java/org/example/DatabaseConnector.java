@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DatabaseConnector {
 
@@ -234,6 +235,7 @@ public class DatabaseConnector {
         }
         // System.out.println(table);
 
+
         Table_pair table_pair=Get_sub_content(table);
 
         return table_pair;
@@ -267,23 +269,25 @@ public class DatabaseConnector {
 
 
     public static Table_pair Get_sub_content(List<Map<String, String>> table){
-        //找到所有的二级解析对应的根结点
-        List<String> root_node_list_full= extract_List_by_key(table,"root_node");
-        List<String> root_node_list=removeDuplicates(root_node_list_full);
+        // 找到所有的二级解析对应的根结点（排除空值）
+        List<String> root_node_list_full = extract_List_by_key(table, "root_node")
+            .stream()
+            .filter(s -> s != null && !s.isEmpty())
+            .collect(Collectors.toList());
         
-        //二级解析内容的列表
-        List<List<Map<String, String>>> sub_content_list= new ArrayList<>();
-        List<Map<String, String>>sub_content= new ArrayList<>();
-        // System.out.println(root_node_list);
+        List<String> root_node_list = removeDuplicates(root_node_list_full);
+        
+        // 二级解析内容的列表
+        List<List<Map<String, String>>> sub_content_list = new ArrayList<>();
+        List<Map<String, String>> sub_content = new ArrayList<>();
+        
         if(!root_node_list.isEmpty()){
-            for (String root_node: root_node_list){
-                sub_content= new ArrayList<>();
-                for(Map<String, String> table_line:table){
-                    // System.out.println(table_line);
-                    if (table_line.get("root_node")!=null && table_line.get("root_node")!=""){
-                        if (table_line.get("root_node").equals(root_node)){//可能会存在为空的报错
-                            sub_content.add(table_line);
-                        }
+            for (String root_node : root_node_list){
+                sub_content = new ArrayList<>();
+                for(Map<String, String> table_line : table){
+                    String nodeValue = table_line.get("root_node");
+                    if (nodeValue != null && nodeValue.equals(root_node)){
+                        sub_content.add(table_line);
                     }
                 }
                 if(!sub_content.isEmpty()){
@@ -292,17 +296,20 @@ public class DatabaseConnector {
             }
         }
 
-        //去除二级解析后的内容
-        List<Map<String, String>> main_body= new ArrayList<>();
-        for(Map<String, String> table_line_2:table){
-            // System.out.println(table_line_2);
-            if (table_line_2.get("root_node")==null&&table_line_2.get("schema")!="type"){
-                main_body.add(table_line_2);
+        // 合并逻辑：main_body包含所有root_node为null的条目
+        List<Map<String, String>> main_body = new ArrayList<>();
+        for(Map<String, String> table_line : table){
+            String rootNode = table_line.get("root_node");
+            String schema = table_line.get("schema");
+            
+            // 使用安全的null判断和equals比较
+            if ((rootNode == null || rootNode.isEmpty()) 
+                && (schema == null || !schema.equals("type"))) {
+                main_body.add(table_line);
             }
         }
 
-        Table_pair table_pair=new Table_pair(main_body, sub_content_list);
-        return table_pair;
+        return new Table_pair(main_body, sub_content_list);
     }
 
 
