@@ -145,8 +145,9 @@ public class Main {
             // System.out.println(normResult);
             System.out.println("------------------------------------------------normResult↑");
     
+            // 二级解析
             SubExtract.Print_test(sub_content_list,rawSeg);
-            JSONObject sub_NormResult= SubExtract.get_sub_NormResult(sub_content_list, rawSeg);
+            JSONObject sub_NormResult= SubExtract.get_sub_NormResult(sub_content_list, rawSeg, exited_table);
             SubExtract.mergeJsonObjects(normResult, sub_NormResult);
     
             //由组合规则对原始字段做组合拼凑
